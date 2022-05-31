@@ -5,15 +5,16 @@ const fetchData = async () => {
   buyProduct(data);
 };
 
-let total;
+let total = 0;
 let product;
 // console.log(data);
 function buyProduct(data) {
   do {
     product = prompt(
-      "seleccione que productos desea comprar: 1.Celulares - 2.Lavarropas"
+      "seleccione el numero del producto que desea comprar: 1.Celulares - 2.Lavarropas -3.Terminar compra"
     );
-    let precio;
+    let precio = 0;
+    let cantidad;
 
     switch (product) {
       case "1":
@@ -32,31 +33,69 @@ function buyProduct(data) {
         // console.log(cell.length);
 
         producto = prompt(`Que celular desea comprar:\n ${cellName} `);
-        cantidad = prompt(`Cuantas unidades desea comprar?`);
+        cantidad = parseInt(prompt(`Cuantas unidades desea comprar?`));
 
-        if (cellName.title == producto) {
-          precio = cell.forEach(prod=>)
+        let elemento = cell.find((prod) => prod.title == producto);
+        if (elemento) {
+          precio = elemento.precio;
+          console.log(precio);
+          console.log(cantidad);
           total += precio * cantidad;
+        } else {
+          alert("producto ingresado incorrecto");
         }
         break;
-      case value:
-        break;
-      case value:
+
+      case "2":
+        const tvProduct = [];
+        const tvProductName = [];
+
+        data.map((prod) => {
+          if (prod.category.id == "2") {
+            tvProduct.push(prod);
+            // console.log("hola");
+          }
+        });
+        tvProduct.forEach((prod) => {
+          tvProductName.push(prod.title);
+        });
+        // console.log(cell.length);
+
+        producto = prompt(`Que celular desea comprar:\n ${tvProductName} `);
+        cantidad = parseInt(prompt(`Cuantas unidades desea comprar?`));
+
+        let element = tvProduct.find((prod) => prod.title == producto);
+        if (element) {
+          precio = element.precio;
+          console.log(precio);
+          console.log(cantidad);
+          total += precio * cantidad;
+        } else {
+          alert("producto ingresado incorrecto");
+        }
         break;
 
+      case "3":
+        break;
       default:
         alert("opcion no valida, intente nuevamente");
         break;
     }
 
-    seguirComprando = confirm("desea seguir comprando?");
+    seguirComprando = confirm("desea continuar la compra?");
   } while (seguirComprando);
 
-  let finalizarCompra = confirm(
-    "El total de la compra es: " + total + "\n\n¿Desea finalizar la compra?"
-  );
-  if (finalizarCompra) {
-    alert("Su compra ha sido realizada con éxito");
+  if (total != 0) {
+    let confirmarCompra = confirm(
+      "El total de la compra es:    $" +
+        total +
+        "\n\n¿Desea finalizar la compra?"
+    );
+    if (confirmarCompra) {
+      alert("Su compra ha sido realizada con éxito");
+    } else {
+      alert("su compra ha sido rechazada ");
+    }
   } else {
     alert("Vuelta pronto");
   }
