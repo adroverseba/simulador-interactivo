@@ -1,7 +1,7 @@
 const fetchData = async () => {
   const res = await fetch("api.json");
   const data = await res.json();
-  console.log(data[0]);
+  // console.log(data[0]);
   buyProduct(data);
 };
 
@@ -11,7 +11,7 @@ let product;
 function buyProduct(data) {
   do {
     product = prompt(
-      "seleccione el numero del producto que desea comprar: 1.Celulares - 2.Lavarropas -3.Terminar compra"
+      "seleccione el numero del producto que desea comprar: 1.Celulares - 2.TV y Monitores -3.Terminar compra"
     );
     let precio = 0;
     let cantidad;
@@ -50,19 +50,22 @@ function buyProduct(data) {
         const tvProduct = [];
         const tvProductName = [];
 
-        data.map((prod) => {
-          if (prod.category.id == "2") {
-            tvProduct.push(prod);
+        data.map((pro) => {
+          if (pro.category.id == "2") {
+            tvProduct.push(pro);
+            console.log(tvProduct);
             // console.log("hola");
           }
         });
-        tvProduct.forEach((prod) => {
-          tvProductName.push(prod.title);
+        tvProduct.forEach((pro) => {
+          tvProductName.push(pro.title);
         });
         // console.log(cell.length);
 
-        producto = prompt(`Que celular desea comprar:\n ${tvProductName} `);
-        cantidad = parseInt(prompt(`Cuantas unidades desea comprar?`));
+        producto = prompt(`Que monitor desea comprar:\n ${tvProductName} `);
+        cantidad = parseInt(
+          prompt(`Cuantas unidades de monitores desea comprar?`)
+        );
 
         let element = tvProduct.find((prod) => prod.title == producto);
         if (element) {
@@ -87,7 +90,8 @@ function buyProduct(data) {
 
   if (total != 0) {
     let confirmarCompra = confirm(
-      "El total de la compra es:    $" +
+      "Usted esta comprando: " +
+        "El total de la compra es:    $" +
         total +
         "\n\n¿Desea finalizar la compra?"
     );
